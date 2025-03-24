@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>webshare API</title>
+    <style>
+        button{
+           background-color: black;
+           color: white;
+           text-align: center;
+           font-weight: bold;
+           font-size: medium;
+        }
+    </style>
+</head>
+
+<body>
+    <button onclick="share()">share</button>
+    <script>
+        async function share() {
+
+            let img = await fetch("https://cdn.pixabay.com/photo/2019/10/21/14/54/oranges-4566274_1280.jpg");
+            let file = await img.blob();
+            file = new File([file], 'oranges.jpg', { type: 'image/jpeg' });
+
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                await navigator.share({
+                    title: "webshare API",
+                    text: "check",
+                    url: "https://www.geeksforgeeks.org/",
+                    files: [file]
+
+                });
+                
+            }
+        }
+
+    </script>
+</body>
+
+</html>
